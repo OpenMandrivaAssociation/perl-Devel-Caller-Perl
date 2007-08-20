@@ -1,6 +1,6 @@
 %define module  Devel-Caller-Perl
 %define version 1.4
-%define release 1mdk
+%define release %mkrel 1
 %define	pdir	Devel
 
 Summary: 	%{module} module for perl
