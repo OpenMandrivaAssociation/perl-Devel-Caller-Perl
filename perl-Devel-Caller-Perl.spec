@@ -1,45 +1,46 @@
-%define module  Devel-Caller-Perl
-%define version 1.4
-%define release %mkrel 4
-%define	pdir	Devel
+%define upstream_name    Devel-Caller-Perl
+%define upstream_version 1.4
 
-Summary: 	%{module} module for perl
-Name: 		perl-%{module}
-Version: 	%{version}
-Release: 	%{release}
-License: 	GPL or Artistic
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+
+Summary: 	%{upstream_name} module for perl
+License: 	GPL+ or Artistic
 Group: 		Development/Perl
-Source0: 	%{module}-%{version}.tar.bz2
-Url:            http://search.cpan.org/search?dist=%{module}
+Url:        http://search.cpan.org/dist/%{upstream_name}/
+Source0: 	http://www.cpan.org/modules/by-module/Devel/%{upstream_name}-%{upstream_version}.tar.bz2
+
+BuildRequires:	perl(Module::Build)
+
 BuildArch: 	noarch
-BuildRoot: 	%{_tmppath}/%{name}-buildroot
-Requires: 	perl, perl-base, perl-Exporter-Lite
-BuildRequires:	perl-devel, perl-Module-Build
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}
+
+Requires: 	perl(Exporter::Lite)
 
 %description
-%{module} module for perl.  This module allows a method to get at
+%{upstream_name} module for perl.  This module allows a method to get at
 arguments passed to subroutines higher up in the call stack.
 
 %prep
-
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make
-# make test
+%{__perl} Build.PL installdirs=vendor
+./Build
+
+%check
+./Build test
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-./Build install destdir=$RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
+./Build install destdir=%{buildroot}
 
 %clean 
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 %files
 %defattr(444,root,root,755)
 %doc README
 %{perl_vendorlib}/Devel/Caller/*
 %_mandir/man3/*
-
