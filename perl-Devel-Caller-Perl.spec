@@ -1,15 +1,13 @@
 %define upstream_name    Devel-Caller-Perl
-%define upstream_version 1.4
-
 Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    4
+Version:    1.4
+Release:    5
 
 Summary: 	%{upstream_name} module for perl
 License: 	GPL+ or Artistic
 Group: 		Development/Perl
-Url:        https://search.cpan.org/dist/%{upstream_name}/
-Source0: 	http://www.cpan.org/modules/by-module/Devel/%{upstream_name}-%{upstream_version}.tar.bz2
+Url:        https://metacpan.org/dist/%{upstream_name}/
+Source0: 	http://www.cpan.org/modules/by-module/Devel/%{upstream_name}-%{version}.tar.bz2
 
 BuildRequires:	perl(Module::Build)
 
@@ -23,7 +21,7 @@ Requires: 	perl(Exporter::Lite)
 arguments passed to subroutines higher up in the call stack.
 
 %prep
-%setup -q -n %{upstream_name}-%{upstream_version}
+%setup -q -n %{upstream_name}-%{version}
 
 %build
 %{__perl} Build.PL installdirs=vendor
@@ -53,9 +51,7 @@ arguments passed to subroutines higher up in the call stack.
 
 * Fri Feb 12 2010 Jérôme Quelin <jquelin@mandriva.org> 1.400.0-1mdv2011.0
 + Revision: 504940
-- rebuild using %%perl_convert_version
-
-* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 1.4-4mdv2010.0
+- rebuild using %1.4 Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 1.4-4mdv2010.0
 + Revision: 430408
 - rebuild
 
